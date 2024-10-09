@@ -1,49 +1,51 @@
 import { useState, useEffect } from "react";
 import logo from "../assets/logo.webp"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHouse, faUser, faPaperPlane, faFile } from "@fortawesome/free-solid-svg-icons";
+import { useLocation, Link } from "react-router-dom";
+
 
 function NavBar() {
-    const [isClosed, setIsClosed] = useState(false);
-    useEffect(() => {
-        if(window.innerWidth > 768){
-            document.body.classList.remove("no-scroll");
-            return;
-        }
-        if (isClosed) {
-            document.body.classList.add("no-scroll");
-        } else {
-            document.body.classList.remove("no-scroll");
-        }
-    }, [isClosed]);
-
+    const menu = [
+        { name: "Home", link: "/", icon: faHouse, isActive: true },
+        { name: "About", link: "/about", icon: faUser, isActive: false },
+        { name: "Resume", link: "/resume", icon: faFile, isActive: false },
+        { name: "Contact", link: "/contact", icon: faPaperPlane, isActive: false },
+    ];
+    const currentPage = useLocation().pathname;
+    const [active, setActive] = useState(menu);
+    const handleActive = (index) => {
+        const updatedActive = active.map((item, i) => ({
+            ...item,
+            isActive: i === index
+        }));
+        setActive(updatedActive);
+    };
     return (
-        <header>
-            <nav>
-                <div className="nav-left">
-                    <a href="/" className="link">
-                        <img className="logo" src={logo} alt="Ngoc logo" />
+        <nav>
+            <ul className="list">
+                <li className="list-item">
+                    <a href="/">
+                        <div className="logo">
+                            <img src={logo} alt="Ngoc Trinh logo" />
+                        </div>
                     </a>
-                </div>
-                <div className="nav-right">
-                <div className={isClosed ? "hamburger-menu close" : "hamburger-menu"} onClick={() => setIsClosed(!isClosed)}>
-                    <div className="bar1"></div>
-                    <div className="bar2"></div>
-                    <div className="bar3"></div>
-                </div>
-                    <ul className={isClosed ? "list active" : "list"}>
-                        <li className="list-item">
-                            <a href="#about" className="link">About Me</a>
-                        </li>
-                        <li className="list-item">
-                            <a href="#projects" className="link">Experience</a>
-                        </li>
-                        <li className="list-item">
-                            <a href="#contact" className="link">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </header >
-    )
+                </li>
+                {active.map((item, index) => (
+                    <li
+                        className={currentPage === item.link ? "list-item active" : "list-item"}
+                        key={index}
+                        onClick={() => handleActive(index)}
+                    >
+                        <Link to={item.link}>
+                            <FontAwesomeIcon icon={item.icon} className="icon" />
+                            <span>{item.name}</span>
+                        </Link>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    );
 }
 
 export default NavBar;
