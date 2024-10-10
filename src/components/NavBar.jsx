@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
 import logo from "../assets/logo.webp"
+import Footer from "./Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faUser, faPaperPlane, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faLinkedin } from "@fortawesome/free-brands-svg-icons";
 import { useLocation, Link } from "react-router-dom";
 
 
@@ -39,7 +40,14 @@ function NavBar() {
                         <span>Contact</span>
                     </a>
                 </li>
+                <li className="list-item">
+                    <a href="https://www.linkedin.com/in/ngoc-bao-trinh/" target="_blank">
+                        <FontAwesomeIcon icon={faLinkedin} className="icon" />
+                        <span>LinkedIn</span>
+                    </a>
+                </li>
             </ul>
+            <Footer />
         </nav>
     );
 }

@@ -523,3 +523,11 @@ section {
     transform: scale(1.2);
   }
 }
+
+/* footer */
+.footer{
+  text-align: center;
+  font-size: 1rem;
+  position: fixed;
+  bottom: 0;
+}
