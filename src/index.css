@@ -526,8 +526,15 @@ section {
 
 /* footer */
 .footer{
+  display: none;
   text-align: center;
   font-size: 1rem;
   position: fixed;
   bottom: 0;
+}
+
+@media screen and (min-width: 768px){
+  .footer{
+    display: block;
+  }
 }
